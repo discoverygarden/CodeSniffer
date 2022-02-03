@@ -5,7 +5,8 @@ description: Runs static analysis on your PHP code.
 inputs:
   path:
     description: The path (or paths) to run the analysis on.
-    required: true
+    required: false
+    default: ./
   extensions:
     description: Comma separated list of file extensions to test.
     required: false

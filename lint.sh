@@ -8,10 +8,6 @@ composer -q global require drupal/coder
 composer -q global require dealerdirect/phpcodesniffer-composer-installer
 composer -q global require sebastian/phpcpd
 
-# Register sniffs
-echo "Registering sniffs ..."
-~/.composer/vendor/bin/phpcs -q --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer/
-
 # Run linting and static analysis
 echo "Running PHPCS for Drupal standards ..."
 ~/.composer/vendor/bin/phpcs -s --standard=Drupal,DrupalPractice --extensions=$ACTION_EXTENSIONS $ACTION_PATH --ignore=*.md
