@@ -5,16 +5,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          path: .github/actions/CodeSniffer
-
       - name: Checkout Test Drupal module
         uses: actions/checkout@v2
         with:
           repository: discoverygarden/embargoes
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          path: .github/actions/CodeSniffer
+      - name: checks for files
+        run: |
+          ls
+          ls -R .github
       - name: Run CodeSniffer
-        uses: ./.github/actions/CodeSniffer
+        uses: .github/actions/CodeSniffer
