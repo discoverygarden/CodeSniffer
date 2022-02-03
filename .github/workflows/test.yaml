@@ -20,4 +20,4 @@ jobs:
           ls
           ls -R .github
       - name: Run CodeSniffer
-        uses: .github/actions/CodeSniffer
+        uses: ./.github/actions/CodeSniffer
