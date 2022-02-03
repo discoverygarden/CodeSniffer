@@ -15,9 +15,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: .github/actions/CodeSniffer
-      - name: checks for files
-        run: |
-          ls
-          ls -R .github
+
       - name: Run CodeSniffer
         uses: ./.github/actions/CodeSniffer
