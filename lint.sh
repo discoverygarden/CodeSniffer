@@ -5,6 +5,7 @@ set -e #Exit entire script if any command fails
 # Download dependencies
 echo "Downloading dependencies ..."
 composer global require drupal/coder
+composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 composer global require dealerdirect/phpcodesniffer-composer-installer
 composer global require sebastian/phpcpd
 
