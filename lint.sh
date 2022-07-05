@@ -4,9 +4,9 @@ set -e #Exit entire script if any command fails
 
 # Download dependencies
 echo "Downloading dependencies ..."
-composer -q global require drupal/coder
-composer -q global require dealerdirect/phpcodesniffer-composer-installer
-composer -q global require sebastian/phpcpd
+composer global require drupal/coder
+composer global require dealerdirect/phpcodesniffer-composer-installer
+composer global require sebastian/phpcpd
 
 # Run linting and static analysis
 echo "Running PHPCS for Drupal standards ..."
