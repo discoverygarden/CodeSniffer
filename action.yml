@@ -23,13 +23,24 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - env:
-        ACTION_PATH: ${{ inputs.path }}
-        ACTION_EXTENSIONS: ${{ inputs.extensions }}
-        ACTION_SUFFIX: ${{ inputs.suffix }}
-        ACTION_LINT: ${{ inputs.lint  }}
-      run: ${{ github.action_path }}/lint.sh
+    - name: Installing Lint requirements
       shell: bash
+      run: composer install
+      working-directory: ${{ github.action_path }}
+    - name: Syntax
+      shell: bash
+      run: >
+        ${{ github.action_path }}/vendor/bin/phpcs --standard=Generic --sniffs=Generic.PHP.Syntax
+        --extensions=${{ inputs.lint }} ${{ inputs.path }}
+    - name: Standards
+      shell: bash
+      run: >
+        ${{ github.action_path }}/vendor/bin/phpcs -s --standard=Drupal,DrupalPractice
+        --extensions=${{ inputs.extensions }} ${{ inputs.path }} --ignore=*.md
+    - name: Copy-Pasta
+      shell: bash
+      run: >
+        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }} ${{ inputs.path }}
 
 branding:
   icon: 'check-square'
