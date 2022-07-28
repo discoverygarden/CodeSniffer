@@ -22,7 +22,7 @@ inputs:
   phpcs-ignore:
     description: Comma separated list of files to ignore.
     required: false
-    default: .md
+    default: "*.md"
   phpcpd-exclude:
     description: Comma separated list of files to ignore.
     required: false
@@ -50,7 +50,7 @@ runs:
       if: ${{ always() && inputs.phpcpd-exclude != '' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }}
-        --exclude ${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
+        --exclude=${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
     - name: Copy-Pasta - Normal
       shell: bash
       if: ${{ always() && inputs.phpcpd-exclude == '' }}
