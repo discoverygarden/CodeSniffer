@@ -19,6 +19,13 @@ inputs:
     description: Comma separated list of file extentions to lint.
     required: false
     default: php,module,inc,install,test
+  phpcs-ignore:
+    description: Comma separated list of files to ignore.
+    required: false
+    default: "*.md"
+  phpcpd-exclude:
+    description: Comma separated list of files to ignore.
+    required: false
 
 runs:
   using: "composite"
@@ -34,11 +41,19 @@ runs:
         --extensions=${{ inputs.lint }} ${{ inputs.path }}
     - name: Standards
       shell: bash
+      if: always()
       run: >
         ${{ github.action_path }}/vendor/bin/phpcs -s --standard=Drupal,DrupalPractice
-        --extensions=${{ inputs.extensions }} ${{ inputs.path }} --ignore=*.md
-    - name: Copy-Pasta
+        --extensions=${{ inputs.extensions }} ${{ inputs.path }} --ignore=${{ inputs.phpcs-ignore }}
+    - name: Copy-Pasta - Exclude
       shell: bash
+      if: ${{ always() && inputs.phpcpd-exclude != '' }}
+      run: >
+        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }}
+        --exclude=${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
+    - name: Copy-Pasta - Normal
+      shell: bash
+      if: ${{ always() && inputs.phpcpd-exclude == '' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }} ${{ inputs.path }}
 
