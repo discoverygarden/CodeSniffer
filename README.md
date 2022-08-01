@@ -4,9 +4,12 @@ A GitHub action for performing static analysis on Drupal code. It runs PHPCS and
 
  
 ## Inputs
-- **path:** The path (or paths) to run the analysis on (required).
-- **extensions:** A comma separated list of file extensions to test (optional).
-- **suffix:** Comma separated list of file extensions to test used by phpcs (optional).
+- **path:** The path (or paths) to run the analysis on (optional)(Default: ./).
+- **extensions:** Comma separated list of file extensions to test (optional)(Default: php,module,inc,install,test,profile,theme,css,info,md,yml).
+- **suffix:** Comma separated list of file extensions to test used by phpcs (optional)(Default: .php,\*.module,\*.inc,\*.install,\*.test,\*.profile,\*.theme,\*.js,\*.css,\*.info).
+- **lint:** Comma separated list of file extentions to lint. (optional)(Default: php,module,inc,install,test).
+- **phpcs-ignore:** Comma separated list of files/folder for phpcs to ignore (optional)(Default: \*.md).
+- **phpcpd-exclude:** Comma separated list of folders to ignore (optional).
 
 ## Outputs
 This action does not output any artifacts.
