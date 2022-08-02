@@ -1,0 +1,13 @@
+diff --git a/vendor/sebastian/phpcpd/src/CLI/Application.php b/vendor/sebastian/phpcpd/src/CLI/Application.php
+index 857e4ae..d789293 100644
+--- a/vendor/sebastian/phpcpd/src/CLI/Application.php
++++ b/vendor/sebastian/phpcpd/src/CLI/Application.php
+@@ -62,7 +62,7 @@ public function run(array $argv): int
+         if (empty($files)) {
+             print 'No files found to scan' . PHP_EOL;
+
+-            return 1;
++            return 0;
+         }
+
+         $config = new StrategyConfiguration($arguments);
