@@ -8,5 +8,12 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "extra": {
+    "patches": {
+      "sebastian/phpcpd": {
+        "Fix no files found to scan error code": ".phpcpd-error-code-fix.patch"
+      }
+    }
   }
 }
