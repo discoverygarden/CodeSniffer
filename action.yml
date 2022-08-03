@@ -29,17 +29,14 @@ inputs:
   syntax-continue:
     description: Flag to allow workflow to pass on Syntax step failure.
     required: false
-    type: boolean
     default: false
   standards-continue:
     description: Flag to allow workflow to pass on Standards step failure.
     required: false
-    type: boolean
     default: false
   phpcpd-continue:
     description: Flag to allow workflow to pass on PHPCPD step failure.
     required: false
-    type: boolean
     default: false
 
 runs:
@@ -51,28 +48,28 @@ runs:
       working-directory: ${{ github.action_path }}
     - name: Syntax
       shell: bash
-      continue-on-error: ${{ inputs.syntax-continue }}
+      continue-on-error: ${{ inputs.syntax-continue == 'true' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcs --standard=Generic --sniffs=Generic.PHP.Syntax
         --extensions=${{ inputs.lint }} ${{ inputs.path }}
     - name: Standards
       shell: bash
       if: always()
-      continue-on-error: ${{ inputs.standards-continue }}
+      continue-on-error: ${{ inputs.standards-continue == 'true' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcs -s --standard=Drupal,DrupalPractice
         --extensions=${{ inputs.extensions }} ${{ inputs.path }} --ignore=${{ inputs.phpcs-ignore }}
     - name: Copy-Pasta - Exclude
       shell: bash
       if: ${{ always() && inputs.phpcpd-exclude != '' }}
-      continue-on-error: ${{ inputs.phpcpd-continue }}
+      continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }}
         --exclude=${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
     - name: Copy-Pasta - Normal
       shell: bash
       if: ${{ always() && inputs.phpcpd-exclude == '' }}
-      continue-on-error: ${{ inputs.phpcpd-continue }}
+      continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: >
         ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }} ${{ inputs.path }}
 
