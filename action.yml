@@ -29,14 +29,17 @@ inputs:
   syntax-continue:
     description: Flag to allow workflow to pass on Syntax step failure.
     required: false
+    type: boolean
     default: false
   standards-continue:
     description: Flag to allow workflow to pass on Standards step failure.
     required: false
+    type: boolean
     default: false
   phpcpd-continue:
     description: Flag to allow workflow to pass on PHPCPD step failure.
     required: false
+    type: boolean
     default: false
 
 runs:
