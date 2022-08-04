@@ -8,13 +8,13 @@ inputs:
     required: false
     default: ./
   extensions:
-    description: Comma separated list of file extensions to test.
+    description: Comma separated list of file extensions to test - used by phpcs.
     required: false
     default: php,module,inc,install,test,profile,theme,css,info,md,yml
   suffix:
-    description: Comma separated list of file extensions to test used by phpcs.
+    description: Allows for an additional suffix to track - used by phpcpd.
     required: false
-    default: .php,*.module,*.inc,*.install,*.test,*.profile,*.theme,*.js,*.css,*.info
+    default: .php
   lint:
     description: Comma separated list of file extentions to lint.
     required: false
@@ -64,14 +64,14 @@ runs:
       if: ${{ always() && inputs.phpcpd-exclude != '' }}
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: >
-        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }}
+        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=module --suffix=install --suffix=inc --suffix=theme --suffix=test --suffix=profile --suffix=${{ inputs.suffix }}
         --exclude=${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
     - name: Copy-Pasta - Normal
       shell: bash
       if: ${{ always() && inputs.phpcpd-exclude == '' }}
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: >
-        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=${{ inputs.suffix }} ${{ inputs.path }}
+        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=module --suffix=install --suffix=inc --suffix=theme --suffix=test --suffix=profile --suffix=${{ inputs.suffix }} ${{ inputs.path }}
 
 branding:
   icon: 'check-square'
