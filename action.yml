@@ -69,7 +69,7 @@ runs:
         for i in "${SUFFIX[@]}"
         do
           output="${output} --suffix=${i}";
-        done
+        done;
         if [ ! -z ${{ inputs.phpcpd-exclude }} ]
         then
           output="${output} --exclude=${{ inputs.phpcpd-exclude }}"
