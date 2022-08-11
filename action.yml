@@ -63,10 +63,12 @@ runs:
       shell: bash
       if: always()
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
-      run: >
+      run: |
         output=""
         IFS=',' read -ra SUFFIX <<< ${{ inputs.suffix }}
-        for i in "${SUFFIX[@]}"; do output="${output} --suffix=${i}"; done
+        for i in "${SUFFIX[@]}"; do
+          output="${output} --suffix=${i}"
+        done
         if [ ! -z ${{ inputs.phpcpd-exclude }} ]; then output="${output} --exclude=${{ inputs.phpcpd-exclude }}"; fi
         ${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}
 
