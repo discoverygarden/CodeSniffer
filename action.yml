@@ -12,9 +12,9 @@ inputs:
     required: false
     default: php,module,inc,install,test,profile,theme,css,info,md,yml
   suffix:
-    description: Allows for an additional suffix to track - used by phpcpd.
+    description: Allows for additional suffix to be tracked - used by phpcpd.
     required: false
-    default: .php
+    default: php,module,inc,install,test,profile,theme,css,info,md,yml
   lint:
     description: Comma separated list of file extentions to lint.
     required: false
@@ -59,19 +59,21 @@ runs:
       run: >
         ${{ github.action_path }}/vendor/bin/phpcs -s --standard=Drupal,DrupalPractice
         --extensions=${{ inputs.extensions }} ${{ inputs.path }} --ignore=${{ inputs.phpcs-ignore }}
-    - name: Copy-Pasta - Exclude
+    - name: Copy-Paste
       shell: bash
-      if: ${{ always() && inputs.phpcpd-exclude != '' }}
+      if: always()
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: >
-        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=module --suffix=install --suffix=inc --suffix=theme --suffix=test --suffix=profile --suffix=${{ inputs.suffix }}
-        --exclude=${{ inputs.phpcpd-exclude }} ${{ inputs.path }}
-    - name: Copy-Pasta - Normal
-      shell: bash
-      if: ${{ always() && inputs.phpcpd-exclude == '' }}
-      continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
-      run: >
-        ${{ github.action_path }}/vendor/bin/phpcpd --suffix=module --suffix=install --suffix=inc --suffix=theme --suffix=test --suffix=profile --suffix=${{ inputs.suffix }} ${{ inputs.path }}
+        output=""
+        IFS=',' read -ra SUFFIX <<< ${{ inputs.suffix }}
+        for i in "${SUFFIX[@]}"; do
+          output="${output} --suffix=${i}";
+        done
+        if [ ! -z ${{ inputs.phpcpd-exclude }} ]
+        then
+          output="${output} --exclude=${{ inputs.phpcpd-exclude }}"
+        fi
+        ${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}
 
 branding:
   icon: 'check-square'
