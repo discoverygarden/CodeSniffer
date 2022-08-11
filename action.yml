@@ -71,6 +71,7 @@ runs:
         done
         if [ ! -z ${{ inputs.phpcpd-exclude }} ]; then output="${output} --exclude=${{ inputs.phpcpd-exclude }}"; fi
         ${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}
+        echo "${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}"
 
 branding:
   icon: 'check-square'
