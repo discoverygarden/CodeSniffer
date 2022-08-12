@@ -65,7 +65,7 @@ runs:
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: |
         output=""
-        IFS=',' read -ra SUFFIX <<< ${{ inputs.suffix }}
+        IFS=',' read -ra SUFFIX <<< "${{ inputs.suffix }}"
         for i in "${SUFFIX[@]}"; do
           output="${output} --suffix=${i}"
         done
