@@ -66,8 +66,8 @@ runs:
       run: |
         output=""
         IFS=',' read -ra SUFFIX <<< ${{ inputs.suffix }}
-        for i in "${SUFFIX[@]}"; do
-          output="${output} --suffix=${i}"
+        for suffix in "${SUFFIX[@]}"; do
+          output="${output} --suffix=${suffix}"
         done
         if [ ! -z ${{ inputs.phpcpd-exclude }} ]; then output="${output} --exclude=${{ inputs.phpcpd-exclude }}"; fi
         echo "${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}"
