@@ -69,7 +69,13 @@ runs:
         for suffix in "${SUFFIX[@]}"; do
           output="${output} --suffix=${suffix}"
         done
-        if [ ! -z "${{ inputs.phpcpd-exclude }}" ]; then output="${output} --exclude=${{ inputs.phpcpd-exclude }}"; fi
+        if [ ! -z "${{ inputs.phpcpd-exclude }}" ];
+        then
+          IFS=',' read -ra EXCLUDE <<< ${{ inputs.phpcpd-exclude }}
+            for exclude in "${EXCLUDE[@]}"; do
+            output="${output} --exclude=${exclude}"
+          done
+        fi
         echo "${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}"
         ${{ github.action_path }}/vendor/bin/phpcpd ${output} ${{ inputs.path }}
 
