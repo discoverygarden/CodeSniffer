@@ -65,13 +65,13 @@ runs:
       continue-on-error: ${{ inputs.phpcpd-continue == 'true' }}
       run: |
         output=""
-        IFS=',' read -ra SUFFIX <<< ${{ inputs.suffix }}
+        IFS=',' read -ra SUFFIX <<< "${{ inputs.suffix }}"
         for suffix in "${SUFFIX[@]}"; do
           output="${output} --suffix=${suffix}"
         done
         if [ ! -z "${{ inputs.phpcpd-exclude }}" ];
         then
-          IFS=',' read -ra EXCLUDE <<< ${{ inputs.phpcpd-exclude }}
+          IFS=',' read -ra EXCLUDE <<< "${{ inputs.phpcpd-exclude }}"
             for exclude in "${EXCLUDE[@]}"; do
             output="${output} --exclude=${exclude}"
           done
