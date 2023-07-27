@@ -1,0 +1,13 @@
+---
+name: Code Linting
+on:
+  workflow_call:
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Run CodeSniffer
+        uses: discoverygarden/CodeSniffer@v1
