@@ -1,0 +1,39 @@
+---
+name: Code Linting
+on:
+  workflow_call:
+    inputs:
+      path:
+        required: false
+        type: string
+      extensions:
+        required: false
+        type: string
+      suffix:
+        required: false
+        type: string
+      lint:
+        required: false
+        type: string
+      phpcs-ignore:
+        required: false
+        type: string
+      phpcpd-exclude:
+        required: false
+        type: string
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Run CodeSniffer
+        uses: discoverygarden/CodeSniffer@v1
+        with:
+          path: ${{ inputs.path }}
+          extensions: ${{ inputs.extensions }}
+          suffix: ${{ inputs.suffix }}
+          lint: ${{ inputs.lint }}
+          phpcs-ignore: ${{ inputs.phpcs-ignore }}
+          phpcpd-exclude: ${{ inputs.phpcpd-exclude }}
