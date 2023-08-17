@@ -5,3 +5,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "auto-semver"
+      - dependency-name: "CodeSniffer"
+      - dependency-name: "create-issue"
