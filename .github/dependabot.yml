@@ -9,3 +9,10 @@ updates:
       - dependency-name: "auto-semver"
       - dependency-name: "CodeSniffer"
       - dependency-name: "create-issue"
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
