@@ -11,3 +11,7 @@ jobs:
     steps:
       - name: Run Auto Semver
         uses: discoverygarden/auto-semver@v1
+      - name: Update Major Tag
+        uses: discoverygarden/action-major-tag@v1
+        with:
+          prefix: 'v'
