@@ -14,4 +14,4 @@ jobs:
         with:
           php-version: '8.2'
       - name: Run CodeSniffer
-        uses: discoverygarden/CodeSniffer@fix/update-dependencies
+        uses: discoverygarden/CodeSniffer@v1
